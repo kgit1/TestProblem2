@@ -10,7 +10,6 @@ import java.util.Map;
 import org.junit.Test;
 
 import aTestProblem.App;
-import aTestProblem.Main;
 
 public class TestMainUtilities {
 
@@ -104,8 +103,8 @@ public class TestMainUtilities {
 	public void testIsValidDate() {
 		final String correctDate1 = "2017-05-25";
 		final String correctDate2 = "2017-5-25";
-		final String correctDate3 = "2016-2-29";
-		final String correctDate4 = "2015-2-28";
+		final String correctDate3 = "2016-02-29";
+		final String correctDate4 = "2015-02-28";
 		final String incorrectDate1 = "1999-05-25";
 		final String incorrectDate2 = "2051-05-25";
 		final String incorrectDate3 = "2017/05/25";
@@ -113,9 +112,9 @@ public class TestMainUtilities {
 		final String incorrectDate5 = "2015-2-29";
 
 		assertEquals("2017-05-25", true, app.isValidDate(correctDate1));
-		assertEquals("2017-5-25", true, app.isValidDate(correctDate2));
-		assertEquals("2016-2-29", true, app.isValidDate(correctDate3));
-		assertEquals("2015-2-28", true, app.isValidDate(correctDate4));
+		assertEquals("2017-5-25", false, app.isValidDate(correctDate2));
+		assertEquals("2016-02-29", true, app.isValidDate(correctDate3));
+		assertEquals("2015-02-28", true, app.isValidDate(correctDate4));
 
 		assertEquals("1999-05-25", false, app.isValidDate(incorrectDate1));
 		assertEquals("2051-05-25", false, app.isValidDate(incorrectDate2));
@@ -143,6 +142,11 @@ public class TestMainUtilities {
 
 	@Test
 	public void testAddParser() {
+		app.currenciesData = app.parseCurrencies(app.getCurrencies());
+		app.currenciesRate = new LinkedHashMap<>();
+		app.currenciesRate.put("USD", (double) 1);
+		app.currenciesRate.putAll((Map<String, Double>) app.currenciesData.get("rates"));
+
 		final String correctInput1 = "add 2018-01-01 100 AUD milk";
 		final String correctInput2 = "add 2018-01-01 150 AUD milk cream butter";
 		final String incorrectInput1 = "add 2018/01/01 100 AUD milk";

@@ -7,6 +7,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -27,7 +29,7 @@ public class App {
 	public Map<String, Object> currenciesData;
 	public Map<String, Double> currenciesRate;
 	public Map<DataDate, List<DataText>> programmData = new TreeMap<>();
-	
+
 	public static String reader() {
 		String data = "";
 		InputStreamReader isr = new InputStreamReader(System.in);
@@ -352,39 +354,56 @@ public class App {
 	}
 
 	public boolean isValidDate(String date) {
-		List<String> dateChecker = new ArrayList<>(Arrays.asList(date.split("-")));
-		if (date != null && dateChecker.size() == 3) {
-			if (isInteger(dateChecker.get(0)) && isInteger(dateChecker.get(1)) && isInteger(dateChecker.get(2))) {
-				int year = Integer.parseInt(dateChecker.get(0));
-				int month = Integer.parseInt(dateChecker.get(1));
-				int day = Integer.parseInt(dateChecker.get(2));
 
-				{
-					if (year > 2000 && year < 2050) {
-						if (month > 0 && month <= 12) {
-							if (day > 0 && day <= 31) {
-								if (month == 2) {
-									if (year % 4 == 0) {
-										if (day <= 29) {
-											return true;
-										}
-									} else if (day <= 28) {
-										return true;
-									} else {
-										return false;
-									}
-								}
-								return true;
-							}
-						}
-					}
-
-				}
+		try {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			LocalDate thisDate = LocalDate.parse(date, formatter);
+			System.out.println(date + " : " + thisDate);
+			if (thisDate.getYear() >= 2000 && thisDate.getYear() <= 2050) {
+				return true;
 			}
+
+		} catch (Exception e) {
+			System.out.println(date + " : wrong date");
+			// e.printStackTrace();
 		}
-		System.out.println("Error: Wrong date: " + date);
-		System.out.println(
-				"Please, use right input format for date: YYYY-mm-dd (2017-04-25) and year must be between 2000-2050");
+
+		// List<String> dateChecker = new
+		// ArrayList<>(Arrays.asList(date.split("-")));
+		// if (date != null && dateChecker.size() == 3) {
+		// if (isInteger(dateChecker.get(0)) && isInteger(dateChecker.get(1)) &&
+		// isInteger(dateChecker.get(2))) {
+		// int year = Integer.parseInt(dateChecker.get(0));
+		// int month = Integer.parseInt(dateChecker.get(1));
+		// int day = Integer.parseInt(dateChecker.get(2));
+		//
+		// {
+		// if (year > 2000 && year < 2050) {
+		// if (month > 0 && month <= 12) {
+		// if (day > 0 && day <= 31) {
+		// if (month == 2) {
+		// if (year % 4 == 0) {
+		// if (day <= 29) {
+		// return true;
+		// }
+		// } else if (day <= 28) {
+		// return true;
+		// } else {
+		// return false;
+		// }
+		// }
+		// return true;
+		// }
+		// }
+		// }
+		//
+		// }
+		// }
+		// }
+		// System.out.println("Error: Wrong date: " + date);
+		// System.out.println(
+		// "Please, use right input format for date: YYYY-mm-dd (2017-04-25) and
+		// year must be between 2000-2050");
 		return false;
 	}
 
@@ -411,14 +430,13 @@ public class App {
 		}
 		return false;
 	}
-	
-	public void initialize(){
+
+	public void initialize() {
 		currenciesData = parseCurrencies(getCurrencies());
 		currenciesRate = new LinkedHashMap<>();
 
 		currenciesRate.put("USD", (double) 1);
 		currenciesRate.putAll((Map<String, Double>) currenciesData.get("rates"));
 	}
-
 
 }
