@@ -1,4 +1,4 @@
-package test;
+package com.kd.aTestProblem.test;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -6,12 +6,12 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-import aTestProblem.App;
-import aTestProblem.Main;
+import com.kd.aTestProblem.java.AppCheckCurrencyChanger;
+import com.kd.aTestProblem.java.Main;
 
 public class TestCommandExchangeRates {
 
-	App app = new App();
+	AppCheckCurrencyChanger app = new AppCheckCurrencyChanger();
 
 	@Before
 	public void setCurrencies() {

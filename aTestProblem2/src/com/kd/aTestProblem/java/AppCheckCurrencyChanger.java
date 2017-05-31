@@ -1,4 +1,4 @@
-package aTestProblem;
+package com.kd.aTestProblem.java;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,12 +23,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class App {
+public class AppCheckCurrencyChanger implements AppStarter {
 	private final String urlPath = "http://api.fixer.io/latest?base=USD";
 	private boolean working = true;
 	public Map<String, Object> currenciesData;
 	public Map<String, Double> currenciesRate;
-	public Map<DataDate, List<DataText>> programmData = new TreeMap<>();
+	public Map<LocalDate, List<DataText>> programmData = new TreeMap<>();
 
 	public static String reader() {
 		String data = "";
@@ -132,8 +132,16 @@ public class App {
 	public void commandAdd(List<String> data) {
 		if (data.size() > 0) {
 			List<String> dateList = new ArrayList<>(Arrays.asList(data.get(1).split("-")));
-			DataDate date = new DataDate(Integer.parseInt(dateList.get(0)), Integer.parseInt(dateList.get(1)),
-					Integer.parseInt(dateList.get(2)));
+			/*
+			 * DataDate date = new DataDate(Integer.parseInt(dateList.get(0)),
+			 * Integer.parseInt(dateList.get(1)),
+			 * Integer.parseInt(dateList.get(2)));
+			 */
+			int year = Integer.parseInt(dateList.get(0));
+			int month = Integer.parseInt(dateList.get(1));
+			int dayOfMonth = Integer.parseInt(dateList.get(2));
+
+			LocalDate date = LocalDate.of(year, month, dayOfMonth);
 
 			DataText text = new DataText(Double.parseDouble(data.get(2)), data.get(3), data.get(4));
 
@@ -155,7 +163,7 @@ public class App {
 
 	public void commandList() {
 		System.out.println("===========================================================");
-		for (Entry<DataDate, List<DataText>> entry : programmData.entrySet()) {
+		for (Entry<LocalDate, List<DataText>> entry : programmData.entrySet()) {
 
 			System.out.println(entry.getKey());
 			for (DataText text : entry.getValue()) {
@@ -170,7 +178,7 @@ public class App {
 		dataArray = Arrays.asList(data.split(" "));
 		if (dataArray.size() == 2 && isValidDate(dataArray.get(1))) {
 			List<String> dateList = new ArrayList<>(Arrays.asList(dataArray.get(1).split("-")));
-			DataDate date = new DataDate(Integer.parseInt(dateList.get(0)), Integer.parseInt(dateList.get(1)),
+			LocalDate date = LocalDate.of(Integer.parseInt(dateList.get(0)), Integer.parseInt(dateList.get(1)),
 					Integer.parseInt(dateList.get(2)));
 			if (programmData.containsKey(date)) {
 				programmData.remove(date);
@@ -191,7 +199,7 @@ public class App {
 			double total = 0;
 			String currency = dataArray.get(1);
 			if (isCurrency(currency)) {
-				for (Entry<DataDate, List<DataText>> entry : programmData.entrySet()) {
+				for (Entry<LocalDate, List<DataText>> entry : programmData.entrySet()) {
 					List<DataText> listData = entry.getValue();
 					for (DataText dataText : listData) {
 						if (dataText.getSpent() > 0) {

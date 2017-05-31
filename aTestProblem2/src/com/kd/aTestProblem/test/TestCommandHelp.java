@@ -1,16 +1,16 @@
-package test;
+package com.kd.aTestProblem.test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import org.junit.Test;
 
-import aTestProblem.App;
-import aTestProblem.Main;
+import com.kd.aTestProblem.java.AppCheckCurrencyChanger;
+import com.kd.aTestProblem.java.Main;
 
 public class TestCommandHelp {
 	
-	App app = new App();
+	AppCheckCurrencyChanger app = new AppCheckCurrencyChanger();
 
 	@Test
 	public void testCommandHelp() {

@@ -1,10 +1,10 @@
-package test;
+package com.kd.aTestProblem.test;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import aTestProblem.DataText;
+import com.kd.aTestProblem.java.DataText;
 
 public class TestDataText {
 

@@ -1,4 +1,4 @@
-package aTestProblem;
+/*package com.kd.aTestProblem.java;
 
 public class DataDate implements Comparable<DataDate> {
 
@@ -57,3 +57,4 @@ public class DataDate implements Comparable<DataDate> {
 	}
 
 }
+*/

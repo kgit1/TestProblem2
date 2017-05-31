@@ -1,5 +1,6 @@
-package test;
+package com.kd.aTestProblem.test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -7,17 +8,14 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import aTestProblem.App;
-import aTestProblem.DataDate;
-import aTestProblem.DataText;
-import aTestProblem.Main;
+import com.kd.aTestProblem.java.AppCheckCurrencyChanger;
+import com.kd.aTestProblem.java.DataText;
 
-public class TestCommandList {
-	
-	App app = new App();
+public class TestCommandTotal {
+
+	AppCheckCurrencyChanger app = new AppCheckCurrencyChanger();
 
 	@Before
 	public void setUp() {
@@ -29,8 +27,8 @@ public class TestCommandList {
 		dataText1.add(new DataText(22, "USD", "Gorm"));
 		dataText2.add(new DataText(22, "BRL", "Gorm"));
 
-		app.programmData.put(new DataDate(2001, 10, 21), dataText1);
-		app.programmData.put(new DataDate(2011, 10, 21), dataText1);
+		app.programmData.put(LocalDate.of(2001, 10, 21), dataText1);
+		app.programmData.put(LocalDate.of(2011, 10, 21), dataText1);
 
 		app.currenciesData = app.parseCurrencies(app.getCurrencies());
 		app.currenciesRate = new LinkedHashMap<>();
@@ -39,8 +37,9 @@ public class TestCommandList {
 	}
 
 	@Test
-	public void testCommandList() {
-		app.commandList();
+	public void commandTotal() {
+		app.commandTotal("total AUD");
+
 	}
 
 }

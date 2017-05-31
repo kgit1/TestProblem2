@@ -1,9 +1,10 @@
-package aTestProblem;
+package com.kd.aTestProblem.java;
 
 public class Main {
 
 	public static void main(String[] args) {
-		App app = new App();
+
+		AppStarter app = new AppCheckCurrencyChanger();
 
 		app.appRun();
 	}

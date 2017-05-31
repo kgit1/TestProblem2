@@ -1,4 +1,4 @@
-package aTestProblem;
+package com.kd.aTestProblem.java;
 
 public class DataText {
 

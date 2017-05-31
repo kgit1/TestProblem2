@@ -1,4 +1,4 @@
-package test;
+package com.kd.aTestProblem.test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -9,11 +9,11 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import aTestProblem.App;
+import com.kd.aTestProblem.java.AppCheckCurrencyChanger;
 
 public class TestMainUtilities {
 
-	App app = new App();
+	AppCheckCurrencyChanger app = new AppCheckCurrencyChanger();
 
 	@Test
 	public void testCutCommand() {
